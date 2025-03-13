@@ -1,11 +1,6 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import {Injectable,NotFoundException,} from '@nestjs/common';
 import { Product } from './entities/products.entity';
-import { Connection, In, Repository } from 'typeorm';
+import { Connection, Repository } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto/create-product.dto';
 import { UpdateProductDto } from './dto/create-product.dto/update-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
