@@ -1,6 +1,16 @@
-import { Store } from "src/stores/entities/stores.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-
+import { Store } from 'src/stores/entities/stores.entity';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import * as bcrypt from 'bcryptjs';
+export enum UserRole {
+  ADMIN = 'admin',
+  EMPLOYEE = 'employee',
+}
 @Entity()
 export class Employee {
   @PrimaryGeneratedColumn()
@@ -9,8 +19,24 @@ export class Employee {
   @Column()
   name: string;
 
-  
+  @Column({ unique: true })
+  email: string;
 
-  @ManyToOne(() => Store, store => store.employees)
+  @Column()
+  password: string;
+
+  @BeforeInsert()
+  async hashPassword() {
+    this.password = await bcrypt.hash(this.password, 10);
+  }
+
+  @Column({
+    type: 'enum',
+    enum: UserRole,
+    default: UserRole.EMPLOYEE,
+  })
+  role: UserRole;
+
+  @ManyToOne(() => Store, (store) => store.employees)
   store: Store;
 }
