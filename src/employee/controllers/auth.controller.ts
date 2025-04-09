@@ -12,10 +12,12 @@ export class AuthController {
     return this.authService.register(body.email, body.password);
   }
 
-  @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@Request() req) {
-    return this.authService.login(req.user);
+    return this.authService.login({
+      email: req.body.email,
+      password: req.body.password,
+    });
   }
 
   @UseGuards(JwtAuthGuard)

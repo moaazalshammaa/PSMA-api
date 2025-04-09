@@ -12,6 +12,9 @@ import { CategoriesModule } from './categories/categories.module';
 import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     ProductModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -29,9 +32,6 @@ import { ConfigModule } from '@nestjs/config';
     StoreProductModule,
     DistributionTransactionModule,
     CategoriesModule,
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
   ],
   controllers: [AppController],
   providers: [AppService],

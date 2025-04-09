@@ -13,10 +13,13 @@ import { EmployeeService } from '../services/employee.service';
 import { CreateEmployeeDto } from '../dto/create-employee.dto';
 import { UpdateEmployeeDto } from '../dto/update-employee.dto';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+import { Roles } from '../decorators/role.decorator';
+import { UserRole } from '../entities/employee.entity';
 
 @Controller('employee')
-@UseGuards(AuthGuard)
+@UseGuards(JwtAuthGuard)
+@Roles(UserRole.ADMIN)
 export class EmployeeController {
   constructor(private readonly employeeService: EmployeeService) {}
 

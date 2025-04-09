@@ -1,10 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { DistributionTransactionService } from './distribution-transaction.service';
 import { CreateDistributionTransactionDto } from './dto/create-distribution-transaction.dto';
 import { UpdateDistributionTransactionDto } from './dto/update-distribution-transaction.dto';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
+import { JwtAuthGuard } from 'src/employee/guards/jwt-auth.guard';
 
 @Controller('distribution-transaction')
+@UseGuards(JwtAuthGuard)
 export class DistributionTransactionController {
   constructor(private readonly distributionTransactionService: DistributionTransactionService) {}
 

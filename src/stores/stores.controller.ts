@@ -1,11 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { StoresService } from './stores.service';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
+import { JwtAuthGuard } from 'src/employee/guards/jwt-auth.guard';
 
 
 @Controller('stores')
+@UseGuards(JwtAuthGuard)
 export class StoresController {
     constructor(private readonly storesService: StoresService){}
 

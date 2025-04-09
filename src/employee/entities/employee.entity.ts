@@ -7,10 +7,12 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
+
 export enum UserRole {
   ADMIN = 'admin',
   EMPLOYEE = 'employee',
 }
+
 @Entity()
 export class Employee {
   @PrimaryGeneratedColumn()
@@ -18,6 +20,9 @@ export class Employee {
 
   @Column()
   name: string;
+
+  @Column()
+  phone: string;
 
   @Column({ unique: true })
   email: string;
